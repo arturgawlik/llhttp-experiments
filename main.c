@@ -2,14 +2,8 @@
 #include "stdio.h"
 #include "string.h"
 
-int handle_on_message_complete(llhttp_t *parser) {
-  fprintf(stdout, "Message completed!\n");
-  return 0;
-}
-
 int on_url(llhttp_t *parser, const char *at, size_t length) {
-
-  fprintf(stdout, "on_url callback: '%s' with length '%zu' \n", at, length);
+  printf("on_url callback: %.*s\n", length, at);
   return 0;
 }
 
@@ -21,7 +15,6 @@ int main() {
   llhttp_settings_init(&settings);
 
   /*Set user callback */
-  settings.on_message_complete = handle_on_message_complete;
   settings.on_url = on_url;
 
   /*Initialize the parser in HTTP_BOTH mode, meaning that it will select between
